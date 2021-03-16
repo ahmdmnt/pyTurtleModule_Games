@@ -74,21 +74,29 @@ class Snake:
     def check_game_status(self):
         g_over = False
 
-        snake_xcor = self.body[HEAD].xcor()
-        snake_ycor = self.body[HEAD].ycor()
+        # Check if the Snake hit a wall,
+        if (self.body[HEAD].xcor() >= ((SCREEN_XCOR/2)-SCREEN_MARGIN)) \
+                or (self.body[HEAD].xcor() <= -((SCREEN_XCOR/2)-SCREEN_MARGIN)):
+            g_over = True
+        elif (self.body[HEAD].ycor() >= ((SCREEN_YCOR/2)-HEADER_MARGIN)) \
+                or (self.body[HEAD].ycor() <= -((SCREEN_YCOR/2)-SCREEN_MARGIN)):
+            g_over = True
 
-        if (snake_xcor >= ((SCREEN_XCOR/2)-SCREEN_MARGIN)) or (snake_xcor <= -((SCREEN_XCOR/2)-SCREEN_MARGIN)):
-            g_over = True
-        elif (snake_ycor >= ((SCREEN_YCOR/2)-HEADER_MARGIN)) or (snake_ycor <= -((SCREEN_YCOR/2)-SCREEN_MARGIN)):
-            g_over = True
+        # Check if the Snake hit itself,
+        for segment in self.body:
+            if segment != self.body[HEAD]:
+                if self.body[HEAD].distance(segment) <= 10:
+                    g_over = True
 
         return g_over
+
 
     def ate_food(self, f_position):
         if self.body[HEAD].distance(f_position) <= 13:
             return True
         else:
             return False
+
 
     def extend_body_length(self):
         tail_position = self.body[-1].position()
