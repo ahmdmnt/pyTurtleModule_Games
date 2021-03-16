@@ -83,10 +83,9 @@ class Snake:
             g_over = True
 
         # Check if the Snake hit itself,
-        for segment in self.body:
-            if segment != self.body[HEAD]:
-                if self.body[HEAD].distance(segment) <= 10:
-                    g_over = True
+        for segment in self.body[1:]:
+            if self.body[HEAD].distance(segment) <= 10:
+                g_over = True
 
         return g_over
 
