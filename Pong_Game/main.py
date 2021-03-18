@@ -14,36 +14,10 @@ import time as t
 
 
 #########################################################################
-## Constants:
-VALID_INPUTS = ["EASY", "MEDIUM", "HARD", "E", "M", "H"]
-
-
-#########################################################################
-## Defined Functions Code:
-def accept_user_input():
-    user_input = ""
-    speed = 0
-    while user_input not in VALID_INPUTS:
-        user_input = pong.screen.textinput("Game Speed Prompt", "Select Game Mode:\n(Easy, Medium, Hard)").upper()
-
-    if user_input == "EASY" or user_input == "E":
-        speed = 0.11
-    elif user_input == "MEDIUM" or user_input == "M":
-        speed = 0.08
-    elif user_input == "HARD" or user_input == "H":
-        speed = 0.04
-
-    return speed
-
-
-#########################################################################
 ## Main Code:
 
 # Create the Pong Game Object
 pong = PongGame()
-
-# Accept User Snake Speed Input
-game_speed = accept_user_input()
 
 # Configure Keyboard Keys Functionalities
 pong.screen.onkeypress(pong.move_rt_paddle_up, "Up")
@@ -60,7 +34,7 @@ game_over = False
 while not game_over:
     pong.move_ball()
     pong.screen.update()
-    t.sleep(game_speed)
+    t.sleep(pong.ball_speed)
     pong.check_hit_paddle()
     winner = pong.check_hit_wall()      ## "None" if hit TOP/BOTTOM Walls, "Value" if hit RIGHT/LEFT Walls.
     if winner is not None:

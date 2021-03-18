@@ -13,6 +13,7 @@ from turtle import Turtle, Screen
 
 #########################################################################
 ## Constants:
+VALID_INPUTS = ["EASY", "MEDIUM", "HARD", "E", "M", "H"]
 SCREEN_XCOR = 900
 SCREEN_YCOR = 740
 GAME_XCOR = 800
@@ -37,6 +38,7 @@ class PongGame:
         self.screen_cursor = Turtle()
         self.screen_cursor.ht()
         self.establish_game_layout()
+        self.ball_speed = 0.12
         self.screen.tracer(0)
 
         # Create Score Cursor; Visualize and Update the Score
@@ -147,8 +149,9 @@ class PongGame:
     def reset_ball_position(self):
         # Reverse Ball Direction
         self.x_move *= -1
-        # Reset Ball Position
+        # Reset Ball Position and Speed
         self.ball.setposition(0, 0)
+        self.ball_speed = 0.12
 
     def check_hit_wall(self):
         if self.ball.xcor() >= (GAME_XCOR/2 - 10):
@@ -164,4 +167,7 @@ class PongGame:
     def check_hit_paddle(self):
         if self.ball.distance(self.rt_paddle) < 60 and self.ball.xcor() > 340 or \
                 self.ball.distance(self.lt_paddle) < 60 and self.ball.xcor() < -340:
+            # Make Ball move Faster
+            self.ball_speed *= 0.9
+            # Reverse Ball Direction
             self.bounce_ball_xAxis()
