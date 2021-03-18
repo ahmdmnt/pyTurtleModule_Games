@@ -144,6 +144,12 @@ class PongGame:
     def bounce_ball_xAxis(self):
         self.x_move *= -1
 
+    def reset_ball_position(self):
+        # Reverse Ball Direction
+        self.x_move *= -1
+        # Reset Ball Position
+        self.ball.setposition(0, 0)
+
     def check_hit_wall(self):
         if self.ball.xcor() >= (GAME_XCOR/2 - 10):
             return LT_PLAYER

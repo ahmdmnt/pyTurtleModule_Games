@@ -65,7 +65,7 @@ while not game_over:
     winner = pong.check_hit_wall()      ## "None" if hit TOP/BOTTOM Walls, "Value" if hit RIGHT/LEFT Walls.
     if winner is not None:
         pong.update_players_score(winner)
-        pong.ball.setposition(0, 0)
+        pong.reset_ball_position()
         pong.screen.update()
         t.sleep(3)
 
