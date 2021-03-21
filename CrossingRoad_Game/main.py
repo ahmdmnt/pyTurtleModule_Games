@@ -19,12 +19,10 @@ import time as t
 game = GameGUI()
 turtle = GameTurtle()
 car_manager = GameCarsManager()
-game_speed = 0.1
 
 # Configure Keyboard Functionalities
 game.screen.onkeypress(turtle.move_turtle_fw, "Up")
 game.screen.onkeypress(turtle.move_turtle_bw, "Down")
-
 # Enable Screen Keyboard Listener
 game.screen.listen()
 

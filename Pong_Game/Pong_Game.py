@@ -38,7 +38,7 @@ class PongGame:
         self.screen_cursor = Turtle()
         self.screen_cursor.ht()
         self.establish_game_layout()
-        self.ball_speed = 0.12
+        self.ball_speed = 0.07
         self.screen.tracer(0)
 
         # Create Score Cursor; Visualize and Update the Score

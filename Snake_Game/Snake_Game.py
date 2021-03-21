@@ -11,6 +11,7 @@
 ## Imported Modules:
 import turtle as t
 from random import randint
+import time
 
 #########################################################################
 ## Constants:
@@ -34,6 +35,9 @@ HEAD = 0
 class Snake:
     def __init__(self):
         self.body = []
+        self.create_snake_body()
+
+    def create_snake_body(self):
         for position in STARTING_POSITIONS:
             segment = t.Turtle("square")
             segment.shapesize(0.9)
@@ -41,6 +45,13 @@ class Snake:
             segment.pu()
             segment.setposition(position)
             self.body.append(segment)
+
+    def reset(self):
+        for segment in self.body:
+            segment.setposition(1500, 1500)
+        self.body.clear()
+        self.create_snake_body()
+        print(len(self.body))
 
     def animate_motion(self):
         for index in range(len(self.body) - 1, 0, -1):
@@ -119,3 +130,42 @@ class Food:
         self.piece.setposition(x_position, y_position)
         position = (x_position, y_position)
         return position
+
+
+## Scoreboard Class:
+class ScoreBoard:
+    def __init__(self):
+        self.current = 0
+        self.high = 0
+        self.cursor = t.Turtle()
+        self.cursor.ht()
+        self.cursor.speed("fastest")
+        self.cursor.pu()
+        self.cursor.pencolor("white")
+        self.read_high_score_file()
+        self.update()
+
+    def update(self):
+        self.cursor.clear()
+        self.cursor.setposition(((SCREEN_XCOR / 2) - SCREEN_MARGIN - 10), ((SCREEN_YCOR / 2) - HEADER_MARGIN + 10))
+        self.cursor.write(f"Score: {self.current}", move=False, align="right", font=("Calibri", 14, "bold"))
+        self.cursor.setposition(-((SCREEN_XCOR / 2) - SCREEN_MARGIN - 10), ((SCREEN_YCOR / 2) - HEADER_MARGIN + 10))
+        self.cursor.write(f"High Score: {self.high}", move=False, align="left", font=("Calibri", 14, "bold"))
+
+    def check_high_score(self):
+        if self.current > self.high:
+            self.high = self.current
+        self.current = 0
+        self.update()
+
+    def read_high_score_file(self):
+        with open("top_score.txt", mode="r") as HighScore_file:
+            contents = HighScore_file.read()
+            self.high = int(contents.split("=")[-1])
+            print("HighScore =", self.high)
+
+    def write_back_in_file(self):
+        with open("top_score.txt", mode="w") as HighScore_file:
+            new_contents = f"{str(time.ctime())}: top_score={self.high}"
+            print(f"writing down in saved file...\n{new_contents}")
+            HighScore_file.write(new_contents)

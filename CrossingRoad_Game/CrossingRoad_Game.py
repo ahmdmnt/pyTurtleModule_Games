@@ -192,7 +192,7 @@ class GameCarsManager:
             if car.xcor() < 0:
                 car.ht()
                 del self.all_cars[index]
-        print("After Cleanup Count:", len(self.all_cars),"\n")
+        print("After Cleanup Count:", len(self.all_cars), "\n")
 
     def collide_with_turtle(self, turtle):
         for car in self.all_cars:
