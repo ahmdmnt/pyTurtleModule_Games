@@ -83,6 +83,10 @@ while game_started:
     game_gui.screen.update()
     user_input = game_gui.screen.textinput("Guess the States", "What's another state name?").title()
 
+    if user_input == "Exit":
+        game_gui.display_input("Game Prompt: Exit Game!")
+        break
+
     if user_input in us_states:
         score.update()
         x_cor = int(df[df.state == user_input].x)
