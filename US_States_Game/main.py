@@ -85,8 +85,8 @@ while game_started:
 
     if user_input in us_states:
         score.update()
-        x_cor = int(df[df.state == user_input]["x"])
-        y_cor = int(df[df.state == user_input]["y"])
+        x_cor = int(df[df.state == user_input].x)
+        y_cor = int(df[df.state == user_input].y)
         game_gui.display_state_name(user_input, x_cor, y_cor)
         if score.player_win():
             game_gui.display_input("Game Prompt: CONGRATZZZ!! ^^")
